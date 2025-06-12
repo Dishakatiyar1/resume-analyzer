@@ -16,8 +16,6 @@ cd client
 npm install
 npm run dev
 
-### Server
-```bash
 cd server
 npm install
 node index.js
