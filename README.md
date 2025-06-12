@@ -1,2 +1,23 @@
-# resume-analyzer
-A smart MERN app to analyze resumes, match skills to job roles, and suggest learning paths.
+# 📄 Resume Analyzer
+
+A MERN-based web app to upload resumes, extract skills, and match them with suitable job roles.
+
+## 🚀 Features
+- Upload PDF resumes
+- Extract key skills using backend parsing
+- Match skills with job categories
+- Built with React, Tailwind, Node.js, Express
+
+## 🔧 Getting Started
+
+### Client
+```bash
+cd client
+npm install
+npm run dev
+
+### Server
+```bash
+cd server
+npm install
+node index.js
