@@ -3,6 +3,7 @@
 A MERN-based web app to upload resumes, extract skills, and match them with suitable job roles.
 
 ## 🚀 Features
+
 - Upload PDF resumes
 - Extract key skills using backend parsing
 - Match skills with job categories
@@ -10,12 +11,10 @@ A MERN-based web app to upload resumes, extract skills, and match them with suit
 
 ## 🔧 Getting Started
 
-### Client
+### 🖥️ Client Setup
+
 ```bash
 cd client
 npm install
 npm run dev
-
-cd server
-npm install
-node index.js
+```
