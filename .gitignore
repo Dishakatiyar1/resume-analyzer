@@ -7,6 +7,8 @@ client/dist/
 client/build/
 server/dist/
 
+server/.env
+
 # Logs
 *.log
 
