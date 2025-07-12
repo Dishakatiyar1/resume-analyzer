@@ -5,9 +5,10 @@ A MERN-based web app to upload resumes, extract skills, and match them with suit
 ## 🚀 Features
 
 - Upload PDF resumes
-- Extract key skills using backend parsing
-- Match skills with job categories
-- Built with React, Tailwind, Node.js, Express
+- Parses the resume
+- Uses OpenAI to analyze the resume
+- Uses JSearch API to recommend relevant jobs
+- Built with React, Tailwind, Node.js, Express, MongoDB
 
 ## 🔧 Getting Started
 

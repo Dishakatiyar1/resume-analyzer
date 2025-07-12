@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Upload, FileText, CheckCircle, Loader } from "lucide-react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const UploadResume = () => {
+  const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState("");
@@ -48,6 +50,7 @@ const UploadResume = () => {
 
       if (response.status == 200) {
         setMessage("Resume uploaded successfully!");
+        navigate(`/results/${response.data?.resume?._id}`);
       } else {
         setMessage("Upload failed. Please try again.");
       }

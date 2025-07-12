@@ -1,11 +1,16 @@
 import React from "react";
-import UploadResume from "./components/UploadResume";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Results from "./pages/Results";
 
 const App = () => {
   return (
-    <div className="flex items-center justify-center h-screen">
-      <UploadResume />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/results/:id" element={<Results />} />
+      </Routes>
+    </Router>
   );
 };
 

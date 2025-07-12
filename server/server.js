@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const uploadRouter = require("./routes/uploadRouter");
+const resultsRouter = require("./routes/resultsRouter");
 const connectDB = require("./config/database");
 require("dotenv").config();
 
@@ -11,6 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api", uploadRouter);
+app.use("/api", resultsRouter);
 
 app.get("/", (req, res) => {
   res.send("Server is running!");
