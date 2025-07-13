@@ -139,7 +139,7 @@ const UploadResume = () => {
           {uploading ? (
             <span className="flex items-center justify-center">
               <Loader className="animate-spin mr-3 h-5 w-5 text-white" />
-              Analyzing Resume...
+              Uploading...
             </span>
           ) : (
             "Analyze My Resume"
