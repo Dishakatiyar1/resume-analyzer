@@ -3,32 +3,60 @@ const express = require("express");
 const fs = require("fs");
 const pdf = require("pdf-parse");
 const { extractDetails } = require("../utils/extractDetails");
+const { generateAIFeedback } = require("../utils/aiFeedbackGenerator");
 const Resume = require("../models/Resume");
 
 const router = express.Router();
 const upload = multer({ dest: "uploads/" });
 
 router.post("/upload", upload.single("resume"), async (req, res) => {
-  let dataBuffer = fs.readFileSync(req.file.path);
-
   try {
     if (!req.file) {
-      res.status(400).json({ message: "No File Uploaded!" });
+      return res.status(400).json({ message: "No file uploaded!" });
     }
-    const data = await pdf(dataBuffer);
-    const { name, email, phone, skills } = extractDetails(data.text);
-    const saved = await Resume.create({
+
+    // Read and parse PDF
+    const dataBuffer = fs.readFileSync(req.file.path);
+    const pdfData = await pdf(dataBuffer);
+    const resumeText = pdfData.text;
+
+    // Extract details from resume text
+    const extractedDetails = extractDetails(resumeText);
+
+    // Generate AI feedback
+    const aiFeedback = await generateAIFeedback(resumeText);
+
+    // Save resume to database
+    const savedResume = await Resume.create({
       filename: req.file.originalname,
-      text: data?.text,
-      name,
-      email,
-      phone,
-      skills,
+      text: resumeText,
+      name: extractedDetails.name,
+      email: extractedDetails.email,
+      phone: extractedDetails.phone,
+      skills: extractedDetails.skills,
+      experience: extractedDetails.experience,
+      education: extractedDetails.education,
+      aiFeedback: aiFeedback,
     });
-    res.status(200).json({ message: "Resume Saved!", resume: saved });
-  } catch (err) {
-    console.error("error: " + err.message);
-    res.status(500).json({ message: "Failed to parse resume" });
+
+    // Clean up uploaded file
+    fs.unlinkSync(req.file.path);
+
+    res.status(200).json({
+      message: "Resume uploaded successfully!",
+      resumeId: savedResume._id,
+      details: extractedDetails,
+      aiFeedback: aiFeedback,
+    });
+  } catch (error) {
+    console.error("Resume upload error:", error);
+
+    // Clean up file if it exists
+    if (req.file && fs.existsSync(req.file.path)) {
+      fs.unlinkSync(req.file.path);
+    }
+
+    res.status(500).json({ message: "Failed to process resume" });
   }
 });
 

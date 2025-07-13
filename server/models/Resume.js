@@ -1,18 +1,46 @@
 const mongoose = require("mongoose");
-const { Schema } = mongoose;
 
-const resumeSchema = new Schema(
-  {
-    filename: String,
-    name: String,
-    text: String,
-    email: String,
-    phone: Number,
-    skills: [String],
+const resumeSchema = new mongoose.Schema({
+  filename: {
+    type: String,
+    required: true,
   },
-  { timestamps: true }
-);
+  text: {
+    type: String,
+    required: true,
+  },
+  name: {
+    type: String,
+    default: "Not found",
+  },
+  email: {
+    type: String,
+    default: "Not found",
+  },
+  phone: {
+    type: String,
+    default: "Not found",
+  },
+  skills: {
+    type: [String],
+    default: [],
+  },
+  experience: {
+    type: String,
+    default: "Not specified",
+  },
+  education: {
+    type: [String],
+    default: [],
+  },
+  aiFeedback: {
+    type: String,
+    default: "No feedback available",
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
 
-const ResumeModel = mongoose.model("Resume", resumeSchema);
-
-module.exports = ResumeModel;
+module.exports = mongoose.model("Resume", resumeSchema);

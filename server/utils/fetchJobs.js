@@ -19,11 +19,26 @@ async function fetchJobs(query = "developer jobs in india") {
 
   try {
     const response = await axios.request(options);
-    console.log("✅ Jobs fetched successfully");
-    return response.data.data;
-  } catch (err) {
-    console.error("❌ API Error:", err.response?.data || err.message);
-    throw err;
+    console.log(`✅ Jobs fetched successfully for query: "${query}"`);
+
+    // Return simplified job data
+    const jobs =
+      response.data.data?.map((job) => ({
+        id: job.job_id,
+        title: job.job_title,
+        company: job.employer_name,
+        location: job.job_city || job.job_country,
+        description: job.job_description,
+        url: job.job_apply_link,
+        salary: job.job_salary_range,
+        type: job.job_employment_type,
+        posted: job.job_posted_at_datetime_utc,
+      })) || [];
+
+    return jobs;
+  } catch (error) {
+    console.error("❌ Job fetch error:", error.response?.data || error.message);
+    return [];
   }
 }
 

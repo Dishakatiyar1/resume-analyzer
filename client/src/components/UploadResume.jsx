@@ -50,7 +50,7 @@ const UploadResume = () => {
 
       if (response.status == 200) {
         setMessage("Resume uploaded successfully!");
-        navigate(`/results/${response.data?.resume?._id}`);
+        navigate(`/results/${response.data?.resumeId}`);
       } else {
         setMessage("Upload failed. Please try again.");
       }

@@ -17,11 +17,11 @@ const Results = () => {
         const response = await axios.get(
           `http://localhost:5000/api/results/${resumeId}`
         );
-        const { parsedResume, aiFeedback, jobRecommendations } = response.data;
+        const { data } = response.data;
 
-        setParsedResume(parsedResume);
-        setFeedback(aiFeedback);
-        setJobs(jobRecommendations);
+        setParsedResume(data?.resume);
+        setFeedback(data?.aiFeedback);
+        setJobs(data?.jobs);
       } catch (err) {
         console.error("Error fetching results:", err);
         setError("Unable to fetch results. Please try again.");
@@ -65,18 +65,18 @@ const Results = () => {
         {parsedResume ? (
           <ul className="text-gray-700 list-disc list-inside space-y-1">
             <li>
-              <strong>Name:</strong> {parsedResume.name || "N/A"}
+              <strong>Name:</strong>{" "}
+              {parsedResume?.name === "SUMMARY" ? "N/A" : parsedResume?.name}
             </li>
             <li>
-              <strong>Email:</strong> {parsedResume.email || "N/A"}
+              <strong>Email:</strong> {parsedResume?.email || "N/A"}
             </li>
             <li>
               <strong>Skills:</strong>{" "}
-              {parsedResume.skills?.join(", ") || "N/A"}
+              {parsedResume?.skills?.join(", ") || "N/A"}
             </li>
             <li>
-              <strong>Experience:</strong>{" "}
-              {parsedResume.experience?.length || 0} entries
+              <strong>Experience:</strong> {parsedResume?.experience || "N/A"}{" "}
             </li>
           </ul>
         ) : (
@@ -104,7 +104,7 @@ const Results = () => {
                   {job.company} – {job.location}
                 </p>
                 <a
-                  href={job.link}
+                  href={job.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block mt-2 text-blue-600 font-medium hover:underline"
