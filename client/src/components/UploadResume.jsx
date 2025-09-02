@@ -67,6 +67,7 @@ const UploadResume = () => {
   };
 
   console.log("comment from person A");
+  console.log("new commnet from person A");
 
   return (
     <div className="max-w-lg mx-auto p-8 bg-white rounded-xl shadow-lg border border-gray-100">
