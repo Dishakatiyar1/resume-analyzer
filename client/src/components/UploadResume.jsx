@@ -66,6 +66,8 @@ const UploadResume = () => {
     setMessage("");
   };
 
+  console.log("comment from person A");
+
   return (
     <div className="max-w-lg mx-auto p-8 bg-white rounded-xl shadow-lg border border-gray-100">
       <div className="text-center mb-8">
