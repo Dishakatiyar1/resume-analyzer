@@ -9,6 +9,8 @@ const Resume = require("../models/Resume");
 const router = express.Router();
 const upload = multer({ dest: "uploads/" });
 
+console.log("yes");
+
 router.post("/upload", upload.single("resume"), async (req, res) => {
   try {
     if (!req.file) {
