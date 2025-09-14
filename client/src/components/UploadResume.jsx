@@ -66,9 +66,6 @@ const UploadResume = () => {
     setMessage("");
   };
 
-  console.log("comment from person A");
-  console.log("new comment from testing branch");
-
   return (
     <div className="max-w-lg mx-auto p-8 bg-white rounded-xl shadow-lg border border-gray-100">
       <div className="text-center mb-8">
