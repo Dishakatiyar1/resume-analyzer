@@ -30,7 +30,7 @@ jobs:
     name: Server CI
     runs-on: ubuntu-latest
 
-    env: 
+    env:
       TOKEN_SECRET_KEY: ${{ secrets.TOKEN_SECRET_KEY }}
       DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTION_STRING }}
       NODE_ENV: ${{ secrets.NODE_ENV }}
@@ -50,3 +50,9 @@ jobs:
       - name: Run server tests
         working-directory: server
         run: npm test || true
+
+      - name: Cache server dependencies
+        uses: actions/cache@v4
+        with:
+          path: server/node_modules
+          key: server-${{ runner.os }}-${{ hashFiles('server/package-lock.json') }}
