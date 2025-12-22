@@ -30,6 +30,11 @@ jobs:
     name: Server CI
     runs-on: ubuntu-latest
 
+    env: TOKEN_SECRET_KEY:${{secrets.TOKEN_SECRET_KEY}}
+      DB_CONNECTION_STRING:${{secrets.DB_CONNECTION_STRING}}
+      NODE_ENV:${{secrets.NODE_ENV}}
+      OPEN_AI_KEY:${{secrets.OPEN_AI_KEY}}
+
     steps:
       - uses: actions/checkout@v4
 
